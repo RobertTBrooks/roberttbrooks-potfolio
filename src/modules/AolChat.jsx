@@ -13,7 +13,8 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  signOut
+  signOut,
+  updateProfile
 } from 'firebase/auth';
 
 import {
@@ -22,7 +23,6 @@ import {
   query,
   orderBy,
   limit,
-  addDoc,
   serverTimestamp,
   doc,
   setDoc,
@@ -47,7 +47,7 @@ const auth = getAuth(app);
 const firestore = getFirestore(app);
 //const analytics = getAnalytics(app);
 
-function AolChat() {
+function AolChat({ onClose }) {
   const [user] = useAuthState(auth);
 
   useEffect(() => {
@@ -95,9 +95,11 @@ function AolChat() {
       <header id="chat-header">
         <img src={aolLogo} alt="" />
         <p>{user ? user.displayName : ""}</p>
+        <p>AOL Messanger</p>
+        <button onClick={onClose} className="close-aol" type="button">X</button>
       </header>
-      <div class="menu-bar">
-        <span className="menu-bar-drop-down">
+      <div className="menu-bar">
+        <span className="signout-box">
           <SignOut />
         </span>
         <hr />
@@ -115,20 +117,37 @@ function AolChat() {
 
 
 function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // Sign In state
+  const [signInEmail, setSignInEmail] = useState("");
+  const [signInPassword, setSignInPassword] = useState("");
 
+  // Sign Up state
+  const [signUpEmail, setSignUpEmail] = useState("");
+  const [signUpPassword, setSignUpPassword] = useState("");
   const [username, setUsername] = useState("");
+
+  const signIn = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, signInEmail, signInPassword);
+      console.log("Signed in!");
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   const signUp = async () => {
     try {
-      const userCred = await createUserWithEmailAndPassword(auth, email, password);
+      const userCred = await createUserWithEmailAndPassword(auth, signUpEmail, signUpPassword);
       const uid = userCred.user.uid;
 
       await setDoc(doc(firestore, "users", uid), {
         username: username,
-        email: email,
+        email: signUpEmail,
         createdAt: new Date()
+      });
+
+      await updateProfile(userCred.user, {
+        displayName: username
       });
 
       console.log("User registered with username!");
@@ -136,28 +155,39 @@ function SignIn() {
       console.error(err.message);
     }
   };
-  const signIn = async () => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      console.log("Signed in!");
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
 
   return (
     <div className="sign-in-sign-up">
+      <div className="signin-section">
+        <h4>Sign In</h4>
+        <label htmlFor="signin-email">Email</label>
+        <input name="signin-email" placeholder="Email" value={signInEmail}
+          onChange={(e) => setSignInEmail(e.target.value)}
+        />
+        <input type="password" placeholder="Password" value={signInPassword}
+          onChange={(e) => setSignInPassword(e.target.value)}
+        />
+      </div>
+      <button onClick={signIn}>Sign In</button>
 
-      <label for="username">Enter or Create Username</label>
-      <input name="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <label for="emai">Email & Password</label>
-      <input name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <span className="sign-in-button-box">
-        <button onClick={signIn}>Sign In</button>
-        <button onClick={signUp}>Sign Up</button>
-      </span>
+      <div className="spacer" />
 
+      <div className="signup-section">
+        <h4>Sign Up</h4>
+        <label htmlFor="username">Username</label>
+        <input name="username" placeholder="Username" value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+
+        <label htmlFor="signup-email">Email</label>
+        <input name="signup-email" placeholder="Email" value={signUpEmail}
+          onChange={(e) => setSignUpEmail(e.target.value)}
+        />
+        <input type="password" placeholder="Password" value={signUpPassword}
+          onChange={(e) => setSignUpPassword(e.target.value)}
+        />
+      </div>
+      <button onClick={signUp}>Sign Up</button>
     </div>
   );
 }
@@ -172,32 +202,37 @@ function ChatRoom() {
   const dummy = useRef();
   const messagesRef = collection(firestore, 'messages');
   const q = query(messagesRef, orderBy('createdAt'), limit(25));
-  const [messages] = useCollectionData(q, { idField: 'id' });
+  const [messages] = useCollectionData(q, {
+    idField: 'id',
+
+  });
   const [formValue, setFormValue] = useState('');
 
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    const { uid, photoURL } = auth.currentUser;
+    const { uid } = auth.currentUser;
     const userDoc = await getDoc(doc(firestore, "users", uid));
     const username = userDoc.exists() ? userDoc.data().username : "Anonymous";
 
-    await addDoc(messagesRef, {
+    const newMessageRef = doc(messagesRef);
+    await setDoc(newMessageRef, {
       text: formValue,
       createdAt: serverTimestamp(),
       uid,
-      photoURL,
       username,
     });
 
     setFormValue('');
     dummy.current.scrollIntoView({ behavior: 'smooth' });
+    console.log("Loaded messages:", messages);
+
   };
 
   return (
     <>
       <main>
-        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+        {messages && messages.map((msg, idx) => <ChatMessage key={msg.id || idx} message={msg} />)}
         <span ref={dummy}></span>
       </main>
 
@@ -210,12 +245,12 @@ function ChatRoom() {
 }
 
 function ChatMessage(props) {
-  const { text, uid, photoURL, username } = props.message;
+  const { text, uid, username } = props.message;
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (
     <div className={`message ${messageClass}`}>
-      <img src={photoURL || soplogo} alt="avatar" />
+      <img src={soplogo} alt="avatar" />
       <p> <strong>{username || "Unknown"}</strong><br /> {text}</p>
     </div >
   );

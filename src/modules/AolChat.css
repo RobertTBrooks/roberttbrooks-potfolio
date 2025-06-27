@@ -9,8 +9,15 @@
   font-family: 'windows3', sans-serif;
 }
 
+.spacer {
+
+  margin-top: 20px;
+  height: 2px;
+  background-color: #d4d0c8;
+}
+
 .App {
-  width: 400px;
+  width: 420px;
   height: 600px;
   background: #d4d0c8;
   border: 8px solid #d4d0c8;
@@ -20,7 +27,7 @@
   position: absolute;
   top: 100px;
   left: 100px;
-  z-index: +10;
+  z-index: 100;
   cursor: default;
 }
 
@@ -29,7 +36,7 @@
   user-select: none;
 }
 
-.menu-bar-drop-down {
+.signout-box {
   color: black;
   background-color: #d4d0c8;
   border: 0;
@@ -65,7 +72,6 @@
 .App header {
   background: linear-gradient(to bottom, #000080, #0000cd);
   color: white;
-  padding: 4px 8px;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
@@ -74,8 +80,18 @@
   font-size: 14px;
 }
 
-.App header::after {
-  content: "AOL Instant Messenger";
+.close-aol {
+  background-color: red;
+  padding: 2px 7px;
+  margin: 8px 4px;
+}
+
+.close-aol:hover {
+  background-color: darkred;
+}
+
+.close-aol:active {
+  background-color: #d4d0c8;
 }
 
 .App>div>section {
@@ -208,7 +224,7 @@ form {
 }
 
 .sign-in-sign-up {
-  padding: 30px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -247,4 +263,18 @@ input {
 .sign-in-button-box>button:hover {
   background-color: #F1EFEC;
   border: 0;
+}
+
+.signin-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.signup-section {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
