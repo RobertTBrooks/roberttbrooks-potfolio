@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 
 import React, { useRef, useState } from 'react';
 import './AolChat.css';
-import soplogo from '../assets/Sop_icon.png';
-import aolLogo from '../assets/aol-logo.png';
-import sendIcon from '../assets/email-icon.png';
+import soplogo from '../../assets/Sop_icon.png';
+import aolLogo from '../../assets/aol-logo.png';
+import sendIcon from '../../assets/email-icon.png';
 
 import { initializeApp } from 'firebase/app';
 
@@ -47,8 +47,32 @@ const auth = getAuth(app);
 const firestore = getFirestore(app);
 //const analytics = getAnalytics(app);
 
-function AolChat({ onClose }) {
+function AolChat({ onClose, getTopZIndex }) {
   const [user] = useAuthState(auth);
+
+  const [zIndex, setZIndex] = useState(() => getTopZIndex()); // Only on mount
+
+  const wrapperRef = useRef(null);
+
+  // Bring to front on mousedown
+  useEffect(() => {
+    const bringToFront = () => {
+
+      setZIndex(getTopZIndex());
+    };
+
+    const wrapper = wrapperRef.current;
+    if (wrapper) {
+      wrapper.addEventListener("mousedown", bringToFront);
+    }
+
+    return () => {
+      if (wrapper) {
+        wrapper.removeEventListener("mousedown", bringToFront);
+      }
+    };
+  }, [getTopZIndex]);
+
 
   useEffect(() => {
     const dragElement = (elmnt, handle) => {
@@ -91,14 +115,14 @@ function AolChat({ onClose }) {
     }
   }, []);
   return (
-    <div className="App" id="chatWindow">
+    <div className="App" id="chatWindow" ref={wrapperRef} style={{ zIndex }}>
       <header id="chat-header">
         <img src={aolLogo} alt="" />
         <p>{user ? user.displayName : ""}</p>
         <p>AOL Messanger</p>
         <button onClick={onClose} className="close-aol" type="button">X</button>
       </header>
-      <div className="menu-bar">
+      <div className="aol-menu-bar">
         <span className="signout-box">
           <SignOut />
         </span>

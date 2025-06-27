@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'windows3';
-  src: url(../assets/fonts/MinecraftBold-nMK1.otf);
+  src: url(../../assets/fonts/MinecraftBold-nMK1.otf);
   font-weight: normal;
   font-style: normal;
 }
@@ -18,9 +18,9 @@
 
 .App {
   width: 420px;
-  height: 600px;
+  height: 620px;
   background: #d4d0c8;
-  border: 8px solid #d4d0c8;
+  border: 2px solid #d4d0c8;
   box-shadow: 4px 4px #808080;
   display: flex;
   flex-direction: column;
@@ -31,6 +31,7 @@
   cursor: default;
 }
 
+
 #chat-header {
   cursor: move;
   user-select: none;
@@ -40,20 +41,21 @@
   color: black;
   background-color: #d4d0c8;
   border: 0;
+  height: 30px;
 }
 
 .chat-boarder {
   display: flex;
   flex-direction: column;
   margin: 0;
-  padding: 0;
+  padding-top: 0;
   height: 100%;
 }
 
 .chat-boarder>h4 {
   color: black;
   margin: 0;
-  width: 60px;
+  width: 75px;
   padding: 3px;
   display: flex;
   border-radius: 6px 6px 0px 0px;
@@ -98,7 +100,7 @@
   margin: 0;
   padding-top: 10px;
   width: 100%;
-  height: 480px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background: #fff;
@@ -162,6 +164,7 @@ form button {
 }
 
 .sign-out {
+  height: 30px;
   color: black;
   margin-top: 5px;
   background-color: #d4d0c8;
