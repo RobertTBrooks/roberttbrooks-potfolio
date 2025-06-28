@@ -7,6 +7,7 @@ body {
 
 * {
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 
@@ -26,11 +27,23 @@ body {
 }
 
 #task-bar {
+  z-index: 99999;
   grid-row: 2 / 3;
   grid-column: 1 / -1;
   background-color: #bfc5c5;
   padding: 0.2rem;
   border-top: 2px solid #eeebec;
+}
+
+.desktop-icon-grid {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  display: grid;
+  grid-auto-flow: column;
+  width: 100%;
+  height: 100%;
+  grid-template-rows: repeat(auto-fill, minmax(180px, 200px));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 200px));
 }
 
 #start-button {
@@ -53,12 +66,9 @@ body {
 
 #aol-desktop-icon {
   display: flex;
-  position: absolute;
-  top: 100px;
-  left: 30px;
   height: 120px;
-  width: 120px;
-  max-width: 120px;
+  width: 160px;
+  max-width: 160px;
   max-height: 120px;
   flex-direction: column;
   justify-content: center;
@@ -95,12 +105,9 @@ body {
 
 #iexplorer-desktop-icon {
   display: flex;
-  position: absolute;
-  top: 300px;
-  left: 30px;
   height: 120px;
-  width: 120px;
-  max-width: 120px;
+  width: 160px;
+  max-width: 160px;
   max-height: 120px;
   flex-direction: column;
   justify-content: center;
@@ -129,6 +136,43 @@ body {
 }
 
 #iexplorer-desktop-icon:active {
+  filter: brightness(0) saturate(80%) invert(34%) sepia(100%) saturate(6500%) hue-rotate(200deg);
+  background-color: rgba(0, 0, 20, 0.2);
+}
+
+#pdf-desktop-icon {
+  display: flex;
+  height: 120px;
+  width: 160px;
+  max-width: 160px;
+  max-height: 120px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+#pdf-desktop-image-icon {
+  display: flex;
+  min-height: 50px;
+  min-width: 70px;
+  background-image: url(./assets/word-pad.png);
+  background-position: center;
+  background-size: 100px;
+}
+
+#pdf-desktop-icon>p {
+  margin: 0;
+  padding-top: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
+  color: white;
+  font-size: 1rem;
+}
+
+#pdf-desktop-icon:active {
   filter: brightness(0) saturate(80%) invert(34%) sepia(100%) saturate(6500%) hue-rotate(200deg);
   background-color: rgba(0, 0, 20, 0.2);
 }

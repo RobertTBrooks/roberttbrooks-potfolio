@@ -6,7 +6,6 @@ const bookmarks = [
   { label: "To Do App", url: "https://roberttbrooks.github.io/top-to-do-list-pj/" },
   { label: "Restaurant Demo Page", url: "https://roberttbrooks.github.io/top-restaurant-page-pj/" },
   { label: "Tic-Tac-toe", url: "https://roberttbrooks.github.io/top-tic-tac-toe-pj/" },
-  { label: "Chatatoe", url: "https://chatatoe.com" },
   { label: "Small Library", url: "https://roberttbrooks.github.io/top-small-library-pj/" },
   { label: "Etch-a-Sketch", url: "https://roberttbrooks.github.io/Etch-a-Sketch_TOP_PJ/" },
 ];
