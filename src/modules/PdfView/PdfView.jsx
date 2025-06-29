@@ -1,6 +1,6 @@
 import './PdfView.css';
 import { useEffect, useState, useRef } from 'react';
-const resumePdf = "../../../public/Robert_Resume.pdf";
+const resumePdf = "/Robert_Resume.pdf";
 
 
 function PdfViewer({ onClose, zIndex, bringToFront }) {
@@ -92,15 +92,11 @@ function PdfViewer({ onClose, zIndex, bringToFront }) {
       </div>
 
       <div className="pdf-menu-bar"><p>File</p><p>Edit</p><p>Help</p></div>
-
-      <div className="pdf-?">
-      </div>
-
       <div className="pdf-tool-bar">
       </div>
 
       <div className="pdf-view-port">
-        <iframe className="pdf-webpage-view" src={resumePdf} />
+        <iframe className="pdf-webpage-view" src={resumePdf ? resumePdf : null} />
       </div>
 
 
