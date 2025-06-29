@@ -176,7 +176,7 @@ body {
 }
 
 #start-button {
-  border: 1px solid #eeebec;
+  border: 2px outset #eeebec;
   background-image: url(./assets/windowsLogo.png);
   background-position: -12px;
   background-repeat: no-repeat;
@@ -186,11 +186,11 @@ body {
   background-color: #bfc5c5;
   height: 50px;
   width: 100px;
-  box-shadow: 2px 2px rgba(0, 0, 0, 0.8);
+  box-shadow: 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 #start-button:hover {
-  box-shadow: 3px 4px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 3px 1px rgba(0, 0, 0, 0.5);
 }
 
 #start-button:active {

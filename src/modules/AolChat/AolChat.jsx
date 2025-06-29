@@ -121,7 +121,6 @@ function AolChat({ onClose, getTopZIndex }) {
         <span className="signout-box">
           <SignOut />
         </span>
-        <hr />
       </div>
       <div className="chat-boarder">
         <h4>Online</h4>
@@ -187,7 +186,7 @@ function SignIn() {
           onChange={(e) => setSignInPassword(e.target.value)}
         />
       </div>
-      <button onClick={signIn}>Sign In</button>
+      <button className="sign-in" onClick={signIn}>Sign In</button>
 
       <div className="spacer" />
 
@@ -206,7 +205,7 @@ function SignIn() {
           onChange={(e) => setSignUpPassword(e.target.value)}
         />
       </div>
-      <button onClick={signUp}>Sign Up</button>
+      <button className="sign-in" onClick={signUp}>Sign Up</button>
     </div>
   );
 }
