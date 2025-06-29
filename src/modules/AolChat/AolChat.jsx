@@ -1,14 +1,10 @@
 import { useEffect } from 'react';
-// Updated for Firebase v9+ Modular SDK
-
 import React, { useRef, useState } from 'react';
 import './AolChat.css';
 import soplogo from '../../assets/Sop_icon.png';
 import aolLogo from '../../assets/aol-logo.png';
 import sendIcon from '../../assets/email-icon.png';
-
 import { initializeApp } from 'firebase/app';
-
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -16,7 +12,6 @@ import {
   signOut,
   updateProfile
 } from 'firebase/auth';
-
 import {
   getFirestore,
   collection,
@@ -28,9 +23,9 @@ import {
   setDoc,
   getDoc
 } from 'firebase/firestore';
-//import { getAnalytics } from 'firebase/analytics';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+//import { getAnalytics } from 'firebase/analytics';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
