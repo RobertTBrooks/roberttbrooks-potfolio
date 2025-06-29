@@ -101,7 +101,7 @@ function IExplorer({ onClose, getTopZIndex }) {
     <div
       id="IE-wrapper"
       ref={wrapperRef}
-      className={isMaximized ? "fullscreen" : "windowed"}
+      className={isMaximized ? "ie-fullscreen" : "ie-windowed"}
       style={{ zIndex }}
     >
       <div className="tab-bar" id="tab-bar-header">

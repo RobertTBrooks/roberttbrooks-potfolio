@@ -1,6 +1,6 @@
 import './PdfView.css';
 import { useEffect, useState, useRef } from 'react';
-const resumePdf = "https://drive.google.com/uc?export=download&id=1mmZrobDFrOfwEPeeS9z7-jR238FLLzMK";
+const resumePdf = "../../../public/Robert_Resume.pdf";
 
 
 function PdfViewer({ onClose, getTopZIndex }) {
@@ -83,7 +83,7 @@ function PdfViewer({ onClose, getTopZIndex }) {
     <div
       id="pdf-wrapper"
       ref={wrapperRef}
-      className={isMaximized ? "fullscreen" : "windowed"}
+      className={isMaximized ? "pdf-fullscreen" : "pdf-windowed"}
       style={{ zIndex }}
     >
       <div className="pdf-headerbar" id="pdf-header-bar">
@@ -104,7 +104,7 @@ function PdfViewer({ onClose, getTopZIndex }) {
       </div>
 
       <div className="pdf-view-port">
-        <iframe className="pdf-webpage-view" src="../../../public/Robert_Resume.pdf" />
+        <iframe className="pdf-webpage-view" src={resumePdf} />
       </div>
 
 

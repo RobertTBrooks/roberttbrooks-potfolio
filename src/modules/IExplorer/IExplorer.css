@@ -15,15 +15,15 @@
 
 }
 
-.fullscreen {
+.ie-fullscreen {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
-  height: 100% !important;
+  height: 95.5% !important;
 }
 
-.windowed {
+.ie-windowed {
   width: 1200px;
   height: 800px;
   background: #d4d0c8;

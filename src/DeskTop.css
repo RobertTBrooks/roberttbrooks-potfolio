@@ -10,6 +10,134 @@ body {
   overflow: hidden;
 }
 
+.left-menu-banner-text {
+  padding: 0;
+  margin: 0;
+  border: 1px solid 100%;
+  width: 50px;
+  height: 100px;
+  rotate: 90deg;
+}
+
+.left-menu-banner {
+  color: #c0c0c0;
+  width: 60px;
+  background-color: #808080;
+  font-size: 2rem;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  padding: 8px;
+}
+
+.start-menu-screen {
+  display: flex;
+  flex-direction: row;
+  z-index: 99999;
+  padding-right: 5px;
+  margin: 0;
+  width: 400px;
+  height: 500px;
+  position: absolute;
+  bottom: 60px;
+  left: 2px;
+  background-color: #bfc5c5;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.8);
+  border: 2px solid #dbdbdb;
+}
+
+.doc-menu-bar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#iexplorer-menu-icon {
+  width: 100%;
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#iexplorer-menu-icon:hover {
+  color: white;
+  background-color: #000080;
+}
+
+.ie-menu-text {
+  width: 100%;
+  font-weight: normal;
+  font-size: 1.2rem;
+}
+
+#iexplorer-menu-image-icon {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  background-image: url(./assets/IE-icon.png);
+  background-size: 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#pdf-menu-icon {
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#pdf-menu-icon:hover {
+  color: white;
+  background-color: #000080;
+}
+
+.pdf-menu-text {
+  font-size: 1.2rem;
+  font-weight: normal;
+  width: 100%;
+}
+
+#pdf-menu-image-icon {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  background-image: url(./assets/word-pad.png);
+  background-size: 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#aol-menu-icon {
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#aol-menu-icon:hover {
+  color: white;
+  background-color: #000080;
+}
+
+.aol-menu-text {
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+#aol-menu-image-icon {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  background-image: url(./assets/aol-logo.png);
+  background-size: 60px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 #wrapper {
   display: grid;
@@ -47,7 +175,7 @@ body {
 }
 
 #start-button {
-  border: 1px solid #3c4040;
+  border: 1px solid #eeebec;
   background-image: url(./assets/windowsLogo.png);
   background-position: -12px;
   background-repeat: no-repeat;
@@ -57,11 +185,15 @@ body {
   background-color: #bfc5c5;
   height: 50px;
   width: 100px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.8);
 }
 
 #start-button:hover {
-  background-color: #eeebec;
+  box-shadow: 3px 4px 1px rgba(0, 0, 0, 0.5);
+}
+
+#start-button:active {
+  box-shadow: inset 2px 2px rgba(0, 0, 0, 0.8);
 }
 
 #aol-desktop-icon {
