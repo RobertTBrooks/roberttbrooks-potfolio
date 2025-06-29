@@ -42,31 +42,27 @@ const auth = getAuth(app);
 const firestore = getFirestore(app);
 //const analytics = getAnalytics(app);
 
-function AolChat({ onClose, getTopZIndex }) {
+function AolChat({ onClose, zIndex, bringToFront }) {
   const [user] = useAuthState(auth);
 
-  const [zIndex, setZIndex] = useState(() => getTopZIndex()); // Only on mount
 
   const wrapperRef = useRef(null);
 
   // Bring to front on mousedown
   useEffect(() => {
-    const bringToFront = () => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
 
-      setZIndex(getTopZIndex());
+    const bringToFrontOnMouseDown = () => {
+      if (bringToFront) bringToFront();
     };
 
-    const wrapper = wrapperRef.current;
-    if (wrapper) {
-      wrapper.addEventListener("mousedown", bringToFront);
-    }
+    wrapper.addEventListener("mousedown", bringToFrontOnMouseDown);
 
     return () => {
-      if (wrapper) {
-        wrapper.removeEventListener("mousedown", bringToFront);
-      }
+      wrapper.removeEventListener("mousedown", bringToFrontOnMouseDown);
     };
-  }, [getTopZIndex]);
+  }, [bringToFront]);
 
 
   useEffect(() => {

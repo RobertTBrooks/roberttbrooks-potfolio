@@ -10,33 +10,29 @@ const bookmarks = [
   { label: "Etch-a-Sketch", url: "https://roberttbrooks.github.io/Etch-a-Sketch_TOP_PJ/" },
 ];
 
-function IExplorer({ onClose, getTopZIndex }) {
+function IExplorer({ onClose, zIndex, bringToFront }) {
   const [urlInput, setUrlInput] = useState('');
   const [urlEntered, setUrlEntered] = useState('');
   const [currentPage, setCurrentPage] = useState("404 - Page not found");
   const [isMaximized, setIsMaximized] = useState(false);
-  const [zIndex, setZIndex] = useState(() => getTopZIndex()); // Only on mount
 
   const wrapperRef = useRef(null);
 
   // Bring to front on mousedown
   useEffect(() => {
-    const bringToFront = () => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
 
-      setZIndex(getTopZIndex());
+    const bringToFrontOnMouseDown = () => {
+      if (bringToFront) bringToFront();
     };
 
-    const wrapper = wrapperRef.current;
-    if (wrapper) {
-      wrapper.addEventListener("mousedown", bringToFront);
-    }
+    wrapper.addEventListener("mousedown", bringToFrontOnMouseDown);
 
     return () => {
-      if (wrapper) {
-        wrapper.removeEventListener("mousedown", bringToFront);
-      }
+      wrapper.removeEventListener("mousedown", bringToFrontOnMouseDown);
     };
-  }, [getTopZIndex]);
+  }, [bringToFront]);
 
   const toggleMax = () => setIsMaximized(prev => !prev);
 
@@ -98,12 +94,7 @@ function IExplorer({ onClose, getTopZIndex }) {
   };
 
   return (
-    <div
-      id="IE-wrapper"
-      ref={wrapperRef}
-      className={isMaximized ? "ie-fullscreen" : "ie-windowed"}
-      style={{ zIndex }}
-    >
+    <div id="IE-wrapper" ref={wrapperRef} className={isMaximized ? "ie-fullscreen" : "ie-windowed"} style={{ zIndex }} >
       <div className="tab-bar" id="tab-bar-header">
         <span className="ie-header-icon"></span>
         <div className="header-title"><p>{currentPage}</p></div>
@@ -116,37 +107,22 @@ function IExplorer({ onClose, getTopZIndex }) {
       <div className="ie-menu-bar"><p>File</p><p>Edit</p><p>Help</p></div>
 
       <div className="url-bar">
-        <input
-          id="url-search"
-          type="text"
-          name="url-search"
-          placeholder="www.Go-to?.com"
-          value={urlInput}
-          onChange={(e) => setUrlInput(e.target.value)}
-          onKeyDown={handleKeyPress}
-        />
+        <input id="url-search" type="text" name="url-search" placeholder="www.Go-to?.com" value={urlInput}
+          onChange={(e) => setUrlInput(e.target.value)} onKeyDown={handleKeyPress} />
       </div>
 
       <div className="ie-bookmark-bar">
         {bookmarks.map(({ label, url }) => (
-          <button
-            key={label}
-            className="ie-bookmarks"
-            type="button"
-            value={url}
+          <button key={label} className="ie-bookmarks" type="button" value={url}
             onClick={() => {
               setUrlEntered(url);
               setCurrentPage(url);
-            }}
-          >{label}</button>
+            }} >{label}</button>
         ))}
       </div>
 
       <div className="ie-view-port">
-        <iframe
-          className="ie-webpage-view"
-          src={urlEntered || undefined}
-          title="IE Webpage Viewer"
+        <iframe className="ie-webpage-view" src={urlEntered || undefined} title="IE Webpage Viewer"
         />
       </div>
 
@@ -156,4 +132,3 @@ function IExplorer({ onClose, getTopZIndex }) {
 }
 
 export default IExplorer;
-

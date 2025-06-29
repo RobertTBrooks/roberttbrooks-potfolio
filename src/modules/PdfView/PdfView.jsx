@@ -3,30 +3,26 @@ import { useEffect, useState, useRef } from 'react';
 const resumePdf = "../../../public/Robert_Resume.pdf";
 
 
-function PdfViewer({ onClose, getTopZIndex }) {
+function PdfViewer({ onClose, zIndex, bringToFront }) {
   const [isMaximized, setIsMaximized] = useState(false);
-  const [zIndex, setZIndex] = useState(() => getTopZIndex()); // Only on mount
 
   const wrapperRef = useRef(null);
 
   // Bring to front on mousedown
   useEffect(() => {
-    const bringToFront = () => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
 
-      setZIndex(getTopZIndex());
+    const bringToFrontOnMouseDown = () => {
+      if (bringToFront) bringToFront();
     };
 
-    const wrapper = wrapperRef.current;
-    if (wrapper) {
-      wrapper.addEventListener("mousedown", bringToFront);
-    }
+    wrapper.addEventListener("mousedown", bringToFrontOnMouseDown);
 
     return () => {
-      if (wrapper) {
-        wrapper.removeEventListener("mousedown", bringToFront);
-      }
+      wrapper.removeEventListener("mousedown", bringToFrontOnMouseDown);
     };
-  }, [getTopZIndex]);
+  }, [bringToFront]);
 
   const toggleMax = () => setIsMaximized(prev => !prev);
 

@@ -156,12 +156,25 @@ body {
 }
 
 #task-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   z-index: 99999;
   grid-row: 2 / 3;
   grid-column: 1 / -1;
   background-color: #bfc5c5;
   padding: 0.2rem;
   border-top: 2px solid #eeebec;
+}
+
+.time-date-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px inset #cbcbcb;
+
+  width: 220px;
+  height: 40px;
 }
 
 .desktop-icon-grid {
@@ -308,4 +321,59 @@ body {
 #pdf-desktop-icon:active {
   filter: brightness(0) saturate(80%) invert(34%) sepia(100%) saturate(6500%) hue-rotate(200deg);
   background-color: rgba(0, 0, 20, 0.2);
+}
+
+.task-icons-grid {
+  display: grid;
+  justify-content: left;
+  grid-template-columns: repeat(auto-fill, minmax(202px, 1fr));
+  width: 87%;
+  max-width: 87%;
+}
+
+.task-bar-icons {
+  display: flex;
+  width: 215px;
+  justify-content: left;
+  align-items: center;
+  height: 50px;
+  border: 3px outset #dbdbdb;
+  cursor: pointer;
+}
+
+.task-bar-icons:active {
+  border: 3px inset #dbdbdb;
+}
+
+.pdf-task-icon {
+  margin-right: 5px;
+  display: flex;
+  min-height: 40px;
+  min-width: 30px;
+  background-image: url(./assets/word-pad.png);
+  background-position: left;
+  background-size: 40px;
+  background-repeat: no-repeat;
+}
+
+.aol-task-icon {
+  margin-right: 5px;
+  display: flex;
+  min-height: 40px;
+  min-width: 30px;
+  background-image: url(./assets/aol-logo.png);
+  background-position: left;
+  background-size: 40px;
+  background-repeat: no-repeat;
+}
+
+.ie-task-icon {
+  margin-right: 5px;
+  display: flex;
+  min-height: 40px;
+  min-width: 30px;
+  background-image: url(./assets/IE-icon.png);
+  background-position: left;
+  background-size: 40px;
+  background-repeat: no-repeat;
 }
